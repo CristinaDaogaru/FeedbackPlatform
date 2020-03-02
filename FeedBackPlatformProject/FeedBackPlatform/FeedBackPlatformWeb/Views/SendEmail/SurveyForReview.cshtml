@@ -1,0 +1,215 @@
+﻿@model FeedBackPlatformWeb.Models.Surveys.SurveyModelOverview
+
+<article class="content survey-details-page">
+    <section class="section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="header-block" style="padding-left: 700px;">
+                                <p class="title" style="font-size:2rem">@Model.SurveyName </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12"><br /></div>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-12"><br /></div>
+                        </div>
+                        <form id="completedSurvey">
+                            @Html.Hidden("SurveyId", Model.SurveyId)
+                            @if (Model.QuestionOverviewList != null && Model.QuestionOverviewList.Count > 0)
+                            {
+                                for (int index = 0; index < Model.QuestionOverviewList.Count(); index++)
+                                {
+                                    var question = Model.QuestionOverviewList[index];
+                                    <div class="row">
+                                        <div class="col-12"><br /></div>
+                                    </div>
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-10">
+                                            <div>
+                                                <div class="card-block question-card-block">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="title-block">
+                                                                <h4 class="title">Question @(index + 1): @question.Description</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                @if (question.QuestionType == "Comment box")
+                                                                {
+                                                                    <div>
+                                                                        <label class="control-label"></label>
+                                                                        @Html.Hidden("QuestionOverviewList[" + index + "].SingleResponse.SurveyId", Model.SurveyId)
+                                                                        @Html.Hidden("QuestionOverviewList[" + index + "].SingleResponse.QuestionId", question.QuestionId)
+                                                                        @Html.TextAreaFor(m => m.QuestionOverviewList[index].SingleResponse.Text, new { @class = "form-control boxed responseSingleChoice", @rows = "3" })
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    for (int i = 0; i < question.QuestionAnswerOverview.Count(); i++)
+                                                                    {
+                                                                        var questionAnswer = question.QuestionAnswerOverview[i];
+                                                                        <div>
+                                                                            <label>
+                                                                                @if (question.QuestionType == "Single Choice")
+                                                                                {
+                                                                                    <input class="radio responseChoice" name="QuestionOverviewList[@index].ResponseItems.QuestionAnswerId" value="@questionAnswer.AnswerId" type="radio" data-question-answer-index="@(index + "_" + i)" data-question-id="@question.QuestionId">
+                                                                                    <span>@questionAnswer.Description</span>
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].QuestionAnswerId", questionAnswer.AnswerId)
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].Text", questionAnswer.Description)
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].QuestionId", question.QuestionId)
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].SurveyId", Model.SurveyId)
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].IsSelected", false, new { @class = string.Format("js-question-id-{0} js-question-answer-index-{1}_{2}", question.QuestionId, index, i) })
+                                                                                }
+                                                                                else if (question.QuestionType == "Checkboxes")
+                                                                                {
+                                                                                    <input class="checkbox responseChoice" name="QuestionOverviewList[@index].ResponseItems[@i].QuestionAnswerId" value="@questionAnswer.AnswerId" type="checkbox" data-question-answer-index="@(index + "_" + i)" data-question-id="@question.QuestionId">
+                                                                                    <span>@questionAnswer.Description</span>
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].Text", questionAnswer.Description)
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].QuestionId", question.QuestionId)
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].SurveyId", Model.SurveyId)
+                                                                                    @Html.Hidden("QuestionOverviewList[" + index + "].ResponseItems[" + i + "].IsSelected", false, new { @class = string.Format("js-question-id-{0} js-question-answer-index-{1}_{2}", question.QuestionId, index, i) })
+                                                                                }
+                                                                            </label>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </form>
+                        <div class="row">
+                            <div class="col-12">
+                                <br />
+                                <br />
+                            </div>
+                            <div class="row justify-content-md-center done-review">
+                                <div class="col-10"><button id="DoneReviewBtn" data-toggle="modal" class="btn btn-primary"> Done</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/createSurvey")
+    <script>
+        $(document).ready(function () {
+            $('[data-question-answer-index]').on('change', function () {
+                if ($(this).attr('type') == "radio") {
+                    var qaIndex = $(this).attr('data-question-answer-index');
+                    $('.js-question-id-' + $(this).attr('data-question-id')).each(function () {
+                        if ($(this).hasClass('js-question-answer-index-' + qaIndex)) {
+                            $(this).val(true);
+                        }
+                        else {
+                            $(this).val(false);
+                        }
+                    });
+                }
+                else if ($(this).attr('type') == "checkbox"){
+                    var qaIndex = $(this).attr('data-question-answer-index');
+                    var isChecked = $(this).prop('checked');
+                    $('.js-question-answer-index-' + qaIndex).val(isChecked);
+                }
+            });
+        });
+
+        $("#DoneReviewBtn").click(function () {
+           $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: '@Url.Action("SaveCompletedSurvey", "SendEmail")',
+               data: $('form#completedSurvey').serialize(),
+               success: function (result) {
+                    if (result != null && result.success) {
+                        window.location = '@Url.Action("SurveyForReview", "SendEmail")';
+                    }
+                    else if (result != null && result.message) {
+                        alert(result.message);
+                    }
+                },
+            });
+        });
+    </script>
+
+}
+
+
+
+<style>
+    .question-card {
+        border: 1px dotted #85CE36;
+    }
+
+        .question-card:hover {
+            /*border: 1px solid #85CE36;*/
+            border: 1px dotted #85CE36;
+            box-shadow: 0 0 4px #85CE36;
+            /*cursor: pointer;*/
+        }
+
+    .question-card-block {
+        padding-top: 0px;
+    }
+
+
+    .question-card .btn-primary {
+        opacity: 0.5;
+    }
+
+    .question-card:hover .btn-primary {
+        opacity: 1;
+    }
+
+
+    .question-card .form-group {
+        margin-top: 1rem;
+    }
+
+    /*****************/
+
+    .form-control.question-text {
+        width: 70%;
+    }
+
+    .form-control.question-type {
+        width: 30%;
+    }
+
+
+    .delete-answer {
+        margin-top: 8px;
+        font-size: 20px;
+    }
+
+        .delete-answer:hover {
+            cursor: pointer;
+        }
+
+
+    .answer-row {
+        padding-bottom: 30px;
+    }
+
+    #done-review-btn {
+        margin-left: 700px;
+    }
+</style>

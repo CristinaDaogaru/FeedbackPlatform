@@ -1,0 +1,184 @@
+﻿@using FeedBackPlatformWeb.Models.Surveys
+
+@{
+    ViewBag.Title = "Overview Surveys";
+}
+
+@model FeedBackPlatformWeb.Models.Surveys.OverviewModel
+
+<article class="content overview-surveys-page">
+    <section class="section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card sameheight-item items" data-exclude="xs,sm,lg">
+                    <div class="card-header bordered">
+                        <div class="header-block">
+                            <h3 class="title"> Items </h3>
+                            <a href="#" data-toggle="modal" data-target="#createSurveyModal" class="btn btn-primary btn-sm"><span class="fa fa-plus"></span> Create Survey </a>
+                        </div>
+                    </div>
+                    <ul class="item-list striped">
+                        <li class="item item-list-header">
+                            <div class="item-row">
+                                <div class="item-col item-col-header item-col-title">
+                                    <div>
+                                        <span>Name</span>
+                                    </div>
+                                </div>
+                                <div class="item-col item-col-header item-col-category">
+                                    <div>
+                                        <span>Survey Category</span>
+                                    </div>
+                                </div>
+                                <div class="item-col item-col-header item-col-questionNumber">
+                                    <div>
+                                        <span>No Of Question</span>
+                                    </div>
+                                </div>
+                                <div class="item-col item-col-header item-col-date">
+                                    <div>
+                                        <span>Modified</span>
+                                    </div>
+                                </div>
+                                <div class="item-col item-col-header item-col-date">
+                                    <div>
+                                        <span>Show  the result</span>
+                                    </div>
+                                </div>
+                                <div class="item-col item-col-header fixed item-col-actions-dropdown"> </div>
+                            </div>
+                        </li>
+                        @foreach (var survey in Model.Surveys)
+                        {
+                            <li class="item">
+                                <div class="item-row">
+                                    <div class="item-col item-col-title no-overflow">
+                                        <div>
+                                            <h4 class="item-title no-wrap">@survey.SurveyName</h4>
+                                        </div>
+                                    </div>
+                                    <div class="item-col item-col-category">
+                                        <div class="item-heading">Survey Category</div>
+                                        <div>@survey.SurveyCategory</div>
+                                    </div>
+                                    <div class="item-col item-col-question-number">
+                                        <div class="item-heading">No Of Question</div>
+                                        <div>@survey.QuestionNumber</div>
+                                    </div>
+                                    <div class="item-col item-col-date">
+                                        <div class="item-heading">Modified</div>
+                                        <div>@survey.LastModified.ToShortDateString()</div>
+                                    </div>
+                                    <div class="item-col item-col-date">
+                                        <div class="item-heading">Show Result</div>
+                                        <div class="no-overflow">
+                                            <a href="@Url.Action("ShowResult","Surveys", new { id = survey.SurveyId})">Show Result</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-col fixed item-col-actions-dropdown">
+                                        <div class="item-actions-dropdown">
+                                            <a class="item-actions-toggle-btn">
+                                                <span class="inactive">
+                                                    <i class="fa fa-cog"></i>
+                                                </span>
+                                                <span class="active">
+                                                    <i class="fa fa-chevron-circle-right"></i>
+                                                </span>
+                                            </a>
+                                            <div class="item-actions-block">
+                                                <ul class="item-actions-list">
+                                                    <li>
+                                                        <a class="edit" href="@Url.Action("Details", "Surveys", new {id=survey.SurveyId })">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="remove" href="#" data-toggle="modal" data-target="#confirm-modal-@survey.SurveyId" data-survey-id="@survey.SurveyId">
+                                                            <i class="fa fa-trash-o "></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                @Html.Partial("ConfirmDelete", survey)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+
+<div class="modal fade" id="createSurveyModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Name your survey</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="CreateSurveyForm">
+                    <div class="form-group">
+                        <label class="control-label">Name</label>
+                        <input id="SurveyName" name="SurveyName" type="text" class="form-control boxed">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Category</label>
+                        @Html.DropDownList("SurveyCategory", Model.SurveyCategories, new { @class = "form-control boxed" })
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="CreateSurveyButton" type="button" data-dismiss="modal">Create Survey</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $('#CreateSurveyButton').on('click', function () {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateSurvey", "Surveys")',
+                data: $('form#CreateSurveyForm').serialize(),
+                dataType: 'json',
+                success: function (result) {
+                    if (result != null && result.success) {
+                        window.location = '@Url.Action("Details", "Surveys")/' + result.id;
+                    }
+                    else if (result != null && result.message) {
+                        alert(result.message);
+                    }
+                },
+            });
+        });
+        $('.removeSurvey').on('click', function () {
+            var id = $(this).data('survey-id');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteSurvey", "Surveys")',
+                data: $('form#deleteSurvey-' + id).serialize(),
+                dataType: 'json',
+                success: function (result) {
+                    if (result != null && result.success) {
+                        window.location = '@Url.Action("Overview", "Surveys")/' + result.id;
+                    }
+                    else if (result != null && result.message) {
+                        alert(result.message);
+                    }
+                },
+            });
+        });
+    </script>
+}

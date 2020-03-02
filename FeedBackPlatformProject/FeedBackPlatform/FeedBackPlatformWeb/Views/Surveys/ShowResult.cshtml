@@ -1,0 +1,81 @@
+﻿@model FeedBackPlatformWeb.Models.Surveys.SurveyShowResult
+
+<article class="content survey-details-page">
+    <section class="section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="header-block" style="padding-left: 700px;">
+                                <p class="title" style="font-size:2rem">@Model.SurveyName </p>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            @if (Model.ProcentajRaspunsNegativ != 0  && Model.ProcentajRaspunsPozitiv != 0)
+                            {
+                                <div id="container-for-result"></div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-light" role="alert">
+                                    <p style="text-align:center; font-size:30px">No result yet!</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+
+
+@section Scripts {
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        Highcharts.chart('container-for-result', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Survey Result'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Results',
+                colorByPoint: true,
+                data: [{
+                    name: 'Positive',
+                    y: @Model.ProcentajRaspunsPozitiv,
+                    color:'limegreen'
+                }, {
+                    name: 'Negativ',
+                        y: @Model.ProcentajRaspunsNegativ,
+                        color:'seagreen'
+                }]
+            }]
+        });
+    </script>
+
+}

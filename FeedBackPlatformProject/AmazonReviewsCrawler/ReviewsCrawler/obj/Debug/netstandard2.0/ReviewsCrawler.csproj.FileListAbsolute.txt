@@ -1,0 +1,9 @@
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\bin\Debug\netstandard2.0\ReviewsCrawler.deps.json
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\bin\Debug\netstandard2.0\ReviewsCrawler.dll
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\bin\Debug\netstandard2.0\ReviewsCrawler.pdb
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\obj\Debug\netstandard2.0\ReviewsCrawler.csprojResolveAssemblyReference.cache
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\obj\Debug\netstandard2.0\ReviewsCrawler.csproj.CoreCompileInputs.cache
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\obj\Debug\netstandard2.0\ReviewsCrawler.AssemblyInfoInputs.cache
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\obj\Debug\netstandard2.0\ReviewsCrawler.AssemblyInfo.cs
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\obj\Debug\netstandard2.0\ReviewsCrawler.dll
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\AmazonReviewsCrawler\ReviewsCrawler\obj\Debug\netstandard2.0\ReviewsCrawler.pdb

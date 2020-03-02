@@ -1,0 +1,296 @@
+﻿@model FeedBackPlatformWeb.Models.Surveys.SurveyDetailsModel
+
+<article class="content survey-details-page">
+    <section class="section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="header-block" style="padding-left: 700px;">
+                                <p class="title" style="font-size:2rem">@Model.SurveyName </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1">
+                        </div>
+                        <div class="col-10">
+                            <a href="@Url.Action("DownloadPDF", "Surveys", new { id = Model.SurveyId })" class="btn btn-secondary btn-sm"><span class="fa fa-download"></span> Download PDF</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12"><br /></div>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-12"><br /></div>
+                        </div>
+                        @if (Model.QuestionDetailsList != null && Model.QuestionDetailsList.Count > 0)
+                        {
+                            for (int index = 0; index < Model.QuestionDetailsList.Count(); index++)
+                            {
+                                var question = Model.QuestionDetailsList[index];
+                                <div class="row">
+                                    <div class="col-12"><br /></div>
+                                </div>
+
+                                <div class="row justify-content-md-center">
+                                    <div class="col-10">
+                                        <div class="card question-card">
+                                            <div class="card-block question-card-block">
+                                                <div class="card-header">
+                                                    <div class="header-block pull-right">
+                                                        <a href="#" data-toggle="modal" data-target="#editQuestion-@question.QuestionId" class="btn btn-primary btn-sm"><span class="fa fa-edit"></span> Edit</a>
+                                                        <a href="@Url.Action("DeleteQuestion","Surveys", new { questionId= question.QuestionId, surveyId= Model.SurveyId})" class="btn btn-primary btn-sm"><span class="fa fa-trash-o"></span> Delete</a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="title-block">
+                                                            <h4 class="title">Question @(index + 1): @question.Description</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            @if (question.QuestionType == "Comment box")
+                                                            {
+                                                                <div>
+                                                                    <label class="control-label"></label>
+                                                                    <textarea rows="3" class="form-control boxed"></textarea>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                foreach (var questionAnswer in question.QuestionAnswers)
+                                                                {
+                                                                    <div>
+                                                                        <label>
+                                                                            @if (question.QuestionType == "Single Choice")
+                                                                            {
+                                                                                <input class="radio" name="radios" type="radio">
+                                                                                <span>@questionAnswer.Description</span>
+                                                                            }
+                                                                            else if (question.QuestionType == "Checkboxes")
+                                                                            {
+                                                                                <input class="checkbox" type="checkbox">
+                                                                                <span>@questionAnswer.Description</span>
+                                                                            }
+                                                                        </label>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @Html.Partial("EditQuestion", question)
+                            }
+                        }
+                        <div class="row">
+                            <div class="col-12"><br /><br /></div>
+                        </div>
+
+                        <div class="row justify-content-md-center">
+                            <div class="col-9"><button id="add-question-btn" data-toggle="modal" data-target="#addQuestionModal" type="button" class="btn btn-primary"><em class="fa fa-plus-circle"></em> New Question</button></div>
+                            <div><button id="send-by-email" data-toggle="modal" data-target="#sendByEmail" type="button" class="btn btn-info"><em class="fa fa-envelope"></em> Send</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+<div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="ModalForAddQuestion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addQuestionForm">
+                    <div class="input-group mt-3 mb-3">
+                        <input class="form-control createSurveyInput questionInput" placeholder="Enter your question" name="Question.Description" type="text" value="" />
+                        <input class="form-control createSurveyInput questionInputForType" name="Question.QuestionType" type="text" value="" hidden />
+                        <input class="form-control createSurveyInput questionInputForSurveyId" name="Question.SurveyId" type="text" value="" hidden />
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-primary dropdown-toggle" id="SelectAnswerType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span id="choiceCategory" name="Question.QuestionType">Select type</span><span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu pull-right" role="menu">
+                                <a href="#" id="SingleChoice" class="responseType dropdown-item btn">Single Choice</a>
+                                <a href="#" id="Checkboxes" class="responseType dropdown-item btn">Checkboxes</a>
+                                <a href="#" id="CommentBox" class="responseType dropdown-item btn">Comment box</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="div-for-answers">
+                        @Html.Partial("ResponseChoice/MultipleChoice")
+                        @Html.Partial("ResponseChoice/Checkbox")
+                        @Html.Partial("ResponseChoice/CommentBox")
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="SaveQuestionButton" type="button" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sendByEmail" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="ModalForSendEmail">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Send Email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sendEmailForm">
+                    <div class="input-group mt-3 mb-3">
+                        @Html.TextBoxFor(m=>m.EmailAdress.Email, new { @placeholder = "Enter email adress", @class="form-control createSurveyInput sendEmail" })
+                        @*<input class="form-control createSurveyInput sendEmail" placeholder="Enter email adress" name="EmailAdress.Email" type="text" value="" />*@
+                        @Html.Hidden("EmailAdress.SurveyId",@Model.SurveyId)
+                        @*<input class="form-control createSurveyInput sendEmailSurveyId" name="EmailAdress.SurveyId" type="text" value="" hidden />*@
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="SendEmailButton" type="button" data-dismiss="modal">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/createSurvey")
+
+    <script>
+        var surveyId = @Model.SurveyId;
+        $("#SaveQuestionButton").click(function () {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: '@Url.Action("AddQuestion", "Surveys")',
+                data: $('form#addQuestionForm').serialize(),
+                success: function (result) {
+                     if (result != null && result.success) {
+                        window.location = '@Url.Action("Details", "Surveys")';
+                    }
+                    else if (result != null && result.message) {
+                        alert(result.message);
+                    }
+                },
+            });
+        });
+        $('.SaveAfterEditQuestionButton').click(function () {
+            var id = $(this).data('button-for-save-edit');
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: '@Url.Action("EditQuestion", "Surveys")',
+                data: $('form[data-form-edit-question='+ id +']').serialize(),
+                success: function (result) {
+                    if (result != null && result.success) {
+                        window.location = '@Url.Action("Details", "Surveys")';
+                    }
+                    else if (result != null && result.message) {
+                        alert(result.message);
+                    }
+                },
+            });
+        });
+        $("#SendEmailButton").click(function () {
+            $('input.sendEmailSurveyId').val(surveyId);
+           $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: '@Url.Action("SendEmail", "Surveys")',
+               data: $('form#sendEmailForm').serialize(),
+               success: function (result) {
+                    if (result != null && result.success) {
+                        window.location = '@Url.Action("Details", "Surveys")';
+                    }
+                    else if (result != null && result.message) {
+                        alert(result.message);
+                    }
+                },
+            });
+        });
+    </script>
+}
+
+
+
+<style>
+    .question-card {
+        border: 1px dotted #85CE36;
+    }
+
+        .question-card:hover {
+            /*border: 1px solid #85CE36;*/
+            border: 1px dotted #85CE36;
+            box-shadow: 0 0 4px #85CE36;
+            /*cursor: pointer;*/
+        }
+
+    .question-card-block {
+        padding-top: 0px;
+    }
+
+
+    .question-card .btn-primary {
+        opacity: 0.5;
+    }
+
+    .question-card:hover .btn-primary {
+        opacity: 1;
+    }
+
+
+    .question-card .form-group {
+        margin-top: 1rem;
+    }
+
+    /*****************/
+
+    .form-control.question-text {
+        width: 70%;
+    }
+
+    .form-control.question-type {
+        width: 30%;
+    }
+
+
+    .delete-answer {
+        margin-top: 8px;
+        font-size: 20px;
+        -webkit-transition: all 1s;
+        transition: all 1s;
+    }
+
+        .delete-answer:hover {
+            cursor: pointer;
+            -webkit-transform: scale(1.5, 1.5);
+            transform: scale(1.4, 1.5);
+        }
+
+
+    .answer-row {
+        padding-bottom: 30px;
+    }
+</style>

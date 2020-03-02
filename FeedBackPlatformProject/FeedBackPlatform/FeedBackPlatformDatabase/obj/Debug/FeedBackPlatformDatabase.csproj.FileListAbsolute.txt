@@ -1,0 +1,14 @@
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\FeedBackPlatformDatabase.dll.config
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\FeedBackPlatformDatabase.dll
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\FeedBackPlatformDatabase.pdb
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\EntityFramework.dll
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\EntityFramework.SqlServer.dll
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\itextsharp.dll
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\EntityFramework.xml
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\EntityFramework.SqlServer.xml
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\bin\Debug\itextsharp.xml
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\obj\Debug\FeedBackPlatformDatabase.csproj.CoreCompileInputs.cache
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\obj\Debug\FeedBackPlatformDatabase.csproj.CopyComplete
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\obj\Debug\FeedBackPlatformDatabase.dll
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\obj\Debug\FeedBackPlatformDatabase.pdb
+C:\WorkSpace\Programs\Bitbucket\FeedBackPlatformProject\FeedbackPlatform\FeedBackPlatformDatabase\obj\Debug\FeedBackPlatformDatabase.csprojResolveAssemblyReference.cache

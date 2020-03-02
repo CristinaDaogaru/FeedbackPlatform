@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCrawler", "ConsoleCrawler\ConsoleCrawler.csproj", "{4982910A-778E-4D49-A69F-97EB93D27C52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewsCrawler", "ReviewsCrawler\ReviewsCrawler.csproj", "{C3520E7D-A30C-42E6-8EB7-059761C3DCA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4982910A-778E-4D49-A69F-97EB93D27C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4982910A-778E-4D49-A69F-97EB93D27C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4982910A-778E-4D49-A69F-97EB93D27C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4982910A-778E-4D49-A69F-97EB93D27C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3520E7D-A30C-42E6-8EB7-059761C3DCA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3520E7D-A30C-42E6-8EB7-059761C3DCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3520E7D-A30C-42E6-8EB7-059761C3DCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3520E7D-A30C-42E6-8EB7-059761C3DCA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1F7B1B2-D528-44D0-9E14-27F2CDCF5F71}
+	EndGlobalSection
+EndGlobal

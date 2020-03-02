@@ -1,0 +1,127 @@
+﻿/*Register*/
+.auth .form-group span.field-validation-error {
+    color: #FF4444;
+    font-size: 13px;
+    display: block !important;
+}
+
+.auth .input-validation-error.form-control.underlined {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: #FF4444;
+}
+
+
+.auth .validation-summary-errors ul li {
+    list-style: none;
+    color: #FF4444;
+    font-size: 13px;
+    display: block !important;
+}
+
+.auth .validation-summary-errors ul {
+    padding-left: 0px;
+}
+.createSurvey {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    background-color: #f6f6f6;
+}
+
+.createSurveyWell {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+    .createSurveyWell .input-group-btn .responseType {
+        display: inline;
+    }
+
+    .createSurveyWell .input-group-btn i {
+        padding-left: 10px;
+    }
+
+#divForAddQuestion {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#divForSaveQuestion {
+    display: inline;
+}
+
+#divForCancelQuestion {
+    display: inline;
+}
+
+#divForDone {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.survey-list .survey-action-buttons {
+    float: right;
+    text-align: right;
+}
+
+.survey-list .survey-row {
+    margin-bottom: 10px;
+}
+
+.container-question {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    height: 25px;
+    width: 25px;
+}
+
+.checkmark-label {
+    margin-top: 13px;
+    padding-right: 10px;
+}
+
+.createSurveyWell .checkBox-for-response {
+    padding-bottom: 10px;
+}
+
+.createSurveyWell .input-for-response {
+    width: 100%;
+}
+
+.createSurveyWell .add-question-form {
+    margin-top: 20px;
+}
+
+.icon-plus {
+    background-image: url("./img/icon-plus.png")
+}
+
+.icon-minus {
+    background-image: url("./img/icon-minus.png")
+}
+.modal-dialog #ModalForAddQuestion {
+    max-width: 70%;
+}
+/*=============*/
+
+
+
+
+
+
+
+
+

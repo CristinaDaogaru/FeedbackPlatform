@@ -1,0 +1,26 @@
+﻿@model FeedBackPlatformWeb.Models.Surveys.SurveyItem
+
+<div class="modal fade" id="confirm-modal-@Model.SurveyId" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="deleteSurvey-@Model.SurveyId" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="fa fa-warning"></i>
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    @Html.HiddenFor(m=>m.SurveyId)
+                </div>
+                <div class="modal-body">
+                    <p>Are sure want to do this?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="removeSurvey" class="btn btn-primary removeSurvey" data-dismiss="modal" data-survey-id="@Model.SurveyId">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
